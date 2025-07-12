@@ -4,48 +4,34 @@
   <meta charset="UTF-8">
   <title>Good Luck, Ajmal Atiqullah!</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
+    body {
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
-
-    .card {
-      position: relative;
-      z-index: 1;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      max-width: 700px;
-      margin: 100px auto;
       text-align: center;
+      padding: 50px;
       color: #0d47a1;
     }
-
+    .card {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      max-width: 700px;
+    }
     h1 {
       font-size: 3em;
+      margin-bottom: 10px;
       color: #01579b;
     }
-
     p {
       font-size: 1.5em;
-      margin: 10px 0;
+      margin: 15px 0;
     }
-
     .emoji {
       font-size: 2.5em;
+      margin: 10px 0;
     }
-
     .note {
       background: #e3f2fd;
       padding: 20px;
@@ -57,7 +43,6 @@
   </style>
 </head>
 <body>
-  <canvas id="fireworks"></canvas>
   <div class="card">
     <div class="emoji">📘🎓✨</div>
     <h1>Good Luck, Ajmal Atiqullah!</h1>
@@ -71,102 +56,5 @@
       <p><strong>All the best! 💙</strong></p>
     </div>
   </div>
-
-  <script>
-    const canvas = document.getElementById('fireworks');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const fireworks = [];
-    const particles = [];
-
-    class Firework {
-      constructor(x, y, targetY) {
-        this.x = x;
-        this.y = y;
-        this.targetY = targetY;
-        this.speed = 5;
-        this.color = hsl(${Math.random() * 360}, 100%, 50%);
-        this.exploded = false;
-      }
-
-      update() {
-        this.y -= this.speed;
-        if (this.y <= this.targetY && !this.exploded) {
-          this.exploded = true;
-          this.explode();
-        }
-      }
-
-      explode() {
-        for (let i = 0; i < 30; i++) {
-          particles.push(new Particle(this.x, this.y, this.color));
-        }
-      }
-
-      draw() {
-        if (!this.exploded) {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-          ctx.fillStyle = this.color;
-          ctx.fill();
-        }
-      }
-    }
-
-    class Particle {
-      constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.radius = Math.random() * 2 + 1;
-        this.color = color;
-        this.speedX = (Math.random() - 0.5) * 5;
-        this.speedY = (Math.random() - 0.5) * 5;
-        this.life = 100;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.life--;
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-    }
-
-    function animate() {
-      requestAnimationFrame(animate);
-      ctx.fillStyle = 'rgba(0,0,0,0.1)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      fireworks.forEach((fw, i) => {
-        fw.update();
-        fw.draw();
-        if (fw.exploded) fireworks.splice(i, 1);
-      });
-
-      particles.forEach((p, i) => {
-        p.update();
-        p.draw();
-        if (p.life <= 0) particles.splice(i, 1);
-      });
-
-      if (Math.random() < 0.05) {
-        fireworks.push(new Firework(Math.random() * canvas.width, canvas.height, Math.random() * canvas.height / 2));
-      }
-    }
-
-    animate();
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  </script>
 </body>
 </html>
